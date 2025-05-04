@@ -10,6 +10,18 @@ const api = axios.create({
   },
 });
 
+// Add a request interceptor for JWT authentication
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 // Task API service
 export const taskService = {
   // Get all tasks

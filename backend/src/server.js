@@ -14,6 +14,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/tasks', require('./routes/taskRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
 
 // Basic route
 app.get('/', (req, res) => {

@@ -1,9 +1,9 @@
 const Task = require('../models/Task');
 
-// Get all tasks
+// Get all tasks for logged in user
 exports.getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find();
+    const tasks = await Task.find({ user: req.user._id });
     res.json(tasks);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -13,10 +13,15 @@ exports.getTasks = async (req, res) => {
 // Get a single task
 exports.getTask = async (req, res) => {
   try {
-    const task = await Task.findById(req.params.id);
+    const task = await Task.findOne({ 
+      _id: req.params.id,
+      user: req.user._id
+    });
+    
     if (!task) {
       return res.status(404).json({ message: 'Task not found' });
     }
+    
     res.json(task);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -29,7 +34,8 @@ exports.createTask = async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     status: req.body.status,
-    priority: req.body.priority
+    priority: req.body.priority,
+    user: req.user._id
   });
 
   try {
@@ -43,7 +49,11 @@ exports.createTask = async (req, res) => {
 // Update a task
 exports.updateTask = async (req, res) => {
   try {
-    const task = await Task.findById(req.params.id);
+    const task = await Task.findOne({
+      _id: req.params.id,
+      user: req.user._id
+    });
+    
     if (!task) {
       return res.status(404).json({ message: 'Task not found' });
     }
@@ -63,7 +73,11 @@ exports.updateTask = async (req, res) => {
 // Delete a task
 exports.deleteTask = async (req, res) => {
   try {
-    const task = await Task.findById(req.params.id);
+    const task = await Task.findOne({
+      _id: req.params.id,
+      user: req.user._id
+    });
+    
     if (!task) {
       return res.status(404).json({ message: 'Task not found' });
     }

@@ -7,16 +7,17 @@ const {
   updateTask, 
   deleteTask 
 } = require('../controllers/taskController');
+const { protect } = require('../middleware/authMiddleware');
 
-// Routes for /api/tasks
+// Routes for /api/tasks - all routes protected
 router.route('/')
-  .get(getTasks)
-  .post(createTask);
+  .get(protect, getTasks)
+  .post(protect, createTask);
 
-// Routes for /api/tasks/:id
+// Routes for /api/tasks/:id - all routes protected
 router.route('/:id')
-  .get(getTask)
-  .put(updateTask)
-  .delete(deleteTask);
+  .get(protect, getTask)
+  .put(protect, updateTask)
+  .delete(protect, deleteTask);
 
 module.exports = router;
