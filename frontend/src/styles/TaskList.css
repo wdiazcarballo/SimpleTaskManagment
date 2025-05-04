@@ -1,0 +1,31 @@
+.task-list-container {
+  padding: 20px 0;
+}
+
+.task-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.task-list-header h1 {
+  margin: 0;
+}
+
+.task-list {
+  margin-top: 20px;
+}
+
+.no-tasks {
+  text-align: center;
+  padding: 40px 0;
+  color: #6c757d;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.no-tasks p {
+  margin-bottom: 16px;
+}
